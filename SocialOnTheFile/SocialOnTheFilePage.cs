@@ -1,5 +1,4 @@
 ﻿using SharpShell.Attributes;
-using SharpShell.ServerRegistration;
 using SharpShell.SharpPropertySheet;
 using SocialOnTheFile.Model;
 using System;
@@ -7,9 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SocialOnTheFile
 {
@@ -84,7 +81,11 @@ namespace SocialOnTheFile
                 {
                     string imphash = Helper.ImpHash.Calculate(filePath);
                     search.Fetch(imphash);
-                    textBox1.Text = imphash;
+
+                    string companyInfo = Helper.FileCompany.Read(filePath);
+                    search.Fetch(companyInfo);
+
+                    textBox1.Text = "ImpHash=" + imphash + "; CompanyInfo=" + companyInfo;
                 }
                 catch (Exception ex)
                 {

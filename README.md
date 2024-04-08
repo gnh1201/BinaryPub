@@ -1,5 +1,5 @@
 # SocialOnTheFile
-Social on the file - Mastodon integration to Windows File Property Sheet
+Social on the file - File reputation checker with Social media timeline
 
 ## Screenshot
 ![Screenshot](screenshot.png)
@@ -10,7 +10,6 @@ Social on the file - Mastodon integration to Windows File Property Sheet
 
 ## Related projects
 * [github.com/Mastodon/Mastodon](https://github.com/Mastodon/Mastodon)
-* [github.com/dwmkerr/sharpshell](https://github.com/dwmkerr/sharpshell)
 * [github.com/gnh1201/CatswordsTab](https://github.com/gnh1201/CatswordsTab)
 
 ## Contact me

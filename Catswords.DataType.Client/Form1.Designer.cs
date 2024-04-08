@@ -40,6 +40,7 @@
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Catswords.DataType.Client";
+            this.Icon = Properties.Resources.icon;
             this.ResumeLayout(false);
 
         }

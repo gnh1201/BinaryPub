@@ -10,8 +10,9 @@ Social on the file - File reputation checker with Social media timeline
 * Torrent InfoHash support
 
 ## Related projects
-* [github.com/Mastodon/Mastodon](https://github.com/Mastodon/Mastodon)
+* [Catswords FileType Directory](https://exts.kr)
 * [github.com/gnh1201/CatswordsTab](https://github.com/gnh1201/CatswordsTab)
+* [github.com/Mastodon/Mastodon](https://github.com/Mastodon/Mastodon)
 
 ## Contact me
 - abuse@catswords.net

@@ -7,6 +7,7 @@ Social on the file - File reputation checker with Social media timeline
 ## Key features
 * Get a reputations by file magic header, file extension from ActivityPub network
 * ImpHash support for PE file format
+* Torrent InfoHash support
 
 ## Related projects
 * [github.com/Mastodon/Mastodon](https://github.com/Mastodon/Mastodon)

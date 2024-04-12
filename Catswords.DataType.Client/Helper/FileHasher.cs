@@ -2,6 +2,7 @@
 using BencodeNET.Torrents;
 using Catswords.DataType.Client.Model;
 using Force.Crc32;
+using SsdeepNET;
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -22,7 +23,8 @@ namespace Catswords.DataType.Client.Helper
                 MAGIC = GetMAGIC(filename),
                 CRC32 = GetCRC32(filename),
                 SHA256 = GetSHA256(filename),
-                InfoHash = GetInfoHash(filename, extension)
+                InfoHash = GetInfoHash(filename, extension),
+                SSDEEP = GetSSDEEP(filename)
             };
         }
 
@@ -149,6 +151,22 @@ namespace Catswords.DataType.Client.Helper
                 BencodeParser parser = new BencodeParser();
                 Torrent torrent = parser.Parse<Torrent>(filename);
                 checksum = BitConverter.ToString(torrent.GetInfoHashBytes()).Replace("-", "").ToLowerInvariant();
+            }
+
+            return checksum;
+        }
+
+        private static string GetSSDEEP(string filename)
+        {
+            string checksum = "";
+
+            using (FileStream stream = File.OpenRead(filename))
+            {
+                MemoryStream ms = new MemoryStream();
+                stream.CopyTo(ms);
+
+                FuzzyHash fuzzyHash = new FuzzyHash();
+                checksum = fuzzyHash.ComputeHash(ms.ToArray());
             }
 
             return checksum;

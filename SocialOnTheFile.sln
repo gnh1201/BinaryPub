@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catswords.DataType.Client", "Catswords.DataType.Client\Catswords.DataType.Client.csproj", "{72A9E640-F785-4202-9CEA-BEC46A9B09B8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SsdeepNET", "..\..\..\OneDrive\문서\GitHub\SsdeepNET\Source\SsdeepNET\SsdeepNET.csproj", "{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{72A9E640-F785-4202-9CEA-BEC46A9B09B8}.Release|x64.Build.0 = Release|Any CPU
 		{72A9E640-F785-4202-9CEA-BEC46A9B09B8}.Release|x86.ActiveCfg = Release|Any CPU
 		{72A9E640-F785-4202-9CEA-BEC46A9B09B8}.Release|x86.Build.0 = Release|Any CPU
+		{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}.Debug|x64.Build.0 = Debug|Any CPU
+		{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}.Debug|x86.Build.0 = Debug|Any CPU
+		{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}.Release|x64.ActiveCfg = Release|Any CPU
+		{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}.Release|x64.Build.0 = Release|Any CPU
+		{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}.Release|x86.ActiveCfg = Release|Any CPU
+		{B1244C5A-CDEB-4D1D-8807-BF40251ABCAB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

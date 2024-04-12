@@ -9,7 +9,7 @@ namespace Catswords.DataType.Client
     public partial class Form2 : Form
     {
         private UserControl1 parent;
-        private ComputeModel computedData;
+        private FileHash hashed;
 
         public Form2(UserControl1 parent)
         {
@@ -20,14 +20,15 @@ namespace Catswords.DataType.Client
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            computedData = Helper.FileCompute.Compute(parent.filePath);
-            txtExtension.Text = computedData.Extension;
-            txtHashMd5.Text = computedData.MD5;
-            txtHashSha1.Text = computedData.SHA1;
-            txtHashCrc32.Text = computedData.CRC32;
-            txtHashSha256.Text = computedData.SHA256;
-            txtMagic.Text = computedData.MAGIC;
-            txtInfoHash.Text = computedData.InfoHash;
+            hashed = Helper.FileHasher.Compute(parent.filePath);
+            txtExtension.Text = hashed.Extension;
+            txtHashMd5.Text = hashed.MD5;
+            txtHashSha1.Text = hashed.SHA1;
+            txtHashCrc32.Text = hashed.CRC32;
+            txtHashSha256.Text = hashed.SHA256;
+            txtMagic.Text = hashed.MAGIC;
+            txtInfoHash.Text = hashed.InfoHash;
+            txtSsdeep.Text = hashed.SSDEEP;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -48,7 +49,7 @@ namespace Catswords.DataType.Client
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.virustotal.com/gui/file/" + computedData.SHA256);
+            Process.Start("https://www.virustotal.com/gui/file/" + hashed.SHA256);
         }
     }
 }

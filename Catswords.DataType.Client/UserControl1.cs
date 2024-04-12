@@ -1,4 +1,5 @@
-﻿using Catswords.DataType.Client.Model;
+﻿using Catswords.DataType.Client.Helper;
+using Catswords.DataType.Client.Model;
 using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;
@@ -73,6 +74,9 @@ namespace Catswords.DataType.Client
 
             // Get data from timeline
             FetchFromTimeline();
+
+            // Get data from Android manifest
+            FetchFromAndroidManifest();
         }
 
         private void FetchFromFileExtensionDB()
@@ -133,13 +137,25 @@ namespace Catswords.DataType.Client
             // if IoC (Indicators of Compomise) mode
             if (fileMagic == "58354f")    // EICAR test file header
             {
-                search.Fetch("ioc");
+                search.Fetch("malware");
             }
 
             // Show the timeline
             foreach (Indicator ind in search.Indicators)
             {
                 listView1.Items.Add(new ListViewItem(new string[] { ind.CreatedAt, ind.Content }, 1));
+            }
+        }
+
+        private void FetchFromAndroidManifest()
+        {
+            if (fileExtension == "apk")
+            {
+                var extractor = new ApkManifestExtractor(filePath);
+                foreach (AndroidPermission perm in extractor.GetPermissions())
+                {
+                    listView1.Items.Add(new ListViewItem(new string[] { perm.Name, perm.Description }));
+                }
             }
         }
 

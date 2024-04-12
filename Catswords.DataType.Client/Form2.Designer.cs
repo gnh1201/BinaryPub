@@ -48,6 +48,8 @@
             this.labelTools = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.txtSsdeep = new System.Windows.Forms.TextBox();
+            this.labelSsdeep = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -63,7 +65,7 @@
             // 
             // txtLocale
             // 
-            this.txtLocale.Location = new System.Drawing.Point(129, 379);
+            this.txtLocale.Location = new System.Drawing.Point(129, 415);
             this.txtLocale.Name = "txtLocale";
             this.txtLocale.Size = new System.Drawing.Size(284, 20);
             this.txtLocale.TabIndex = 1;
@@ -113,7 +115,7 @@
             // labelLocale
             // 
             this.labelLocale.AutoSize = true;
-            this.labelLocale.Location = new System.Drawing.Point(30, 383);
+            this.labelLocale.Location = new System.Drawing.Point(30, 419);
             this.labelLocale.Name = "labelLocale";
             this.labelLocale.Size = new System.Drawing.Size(39, 13);
             this.labelLocale.TabIndex = 0;
@@ -193,7 +195,7 @@
             // 
             this.labelTools.AutoSize = true;
             this.labelTools.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelTools.Location = new System.Drawing.Point(31, 418);
+            this.labelTools.Location = new System.Drawing.Point(31, 452);
             this.labelTools.Name = "labelTools";
             this.labelTools.Size = new System.Drawing.Size(34, 15);
             this.labelTools.TabIndex = 6;
@@ -202,7 +204,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.button1.Location = new System.Drawing.Point(129, 418);
+            this.button1.Location = new System.Drawing.Point(129, 452);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(284, 23);
             this.button1.TabIndex = 3;
@@ -213,13 +215,29 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.button2.Location = new System.Drawing.Point(129, 447);
+            this.button2.Location = new System.Drawing.Point(129, 481);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(284, 23);
             this.button2.TabIndex = 7;
             this.button2.Text = "View on VirusTotal...";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // txtSsdeep
+            // 
+            this.txtSsdeep.Location = new System.Drawing.Point(129, 378);
+            this.txtSsdeep.Name = "txtSsdeep";
+            this.txtSsdeep.Size = new System.Drawing.Size(284, 20);
+            this.txtSsdeep.TabIndex = 9;
+            // 
+            // labelSsdeep
+            // 
+            this.labelSsdeep.AutoSize = true;
+            this.labelSsdeep.Location = new System.Drawing.Point(30, 383);
+            this.labelSsdeep.Name = "labelSsdeep";
+            this.labelSsdeep.Size = new System.Drawing.Size(50, 13);
+            this.labelSsdeep.TabIndex = 8;
+            this.labelSsdeep.Text = "SSDEEP";
             // 
             // Form2
             // 
@@ -228,7 +246,9 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.BackgroundImage = global::Catswords.DataType.Client.Properties.Resources.document_paperclip_list_paper_icon_219544;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(441, 488);
+            this.ClientSize = new System.Drawing.Size(441, 526);
+            this.Controls.Add(this.txtSsdeep);
+            this.Controls.Add(this.labelSsdeep);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.labelTools);
             this.Controls.Add(this.button1);
@@ -285,5 +305,7 @@
         private System.Windows.Forms.Label labelTools;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox txtSsdeep;
+        private System.Windows.Forms.Label labelSsdeep;
     }
 }

@@ -10,5 +10,6 @@
         public string CRC32 { get; set; }
         public string SHA256 { get; set; }
         public string InfoHash { get; set; }
+        public string SSDEEP { get; set; }
     }
 }

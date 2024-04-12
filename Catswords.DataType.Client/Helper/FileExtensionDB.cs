@@ -41,7 +41,7 @@ namespace Catswords.DataType.Client.Helper
                     Indicators.Add(new Indicator()
                     {
                         Id = itemNode.SelectSingleNode("id").InnerText,
-                        CreatedAt = FormatDateTime(itemNode.SelectSingleNode("datetime").InnerText),
+                        CreatedAt = GetDateTimeFromString(itemNode.SelectSingleNode("datetime").InnerText),
                         Content = itemNode.SelectSingleNode("description").InnerText,
                         Url = ""
                     });
@@ -54,16 +54,22 @@ namespace Catswords.DataType.Client.Helper
             }
         }
 
-        public string FormatDateTime(string dateString)
+        public static DateTime GetDateTimeFromString(string dateString)
         {
-            string formattedDateTime = "";
+            DateTime parsedDateTime;
 
-            if (DateTime.TryParseExact(dateString, "yyyy-MM-dd HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDateTime))
+            if (DateTime.TryParseExact(dateString, "yyyy-MM-dd HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out parsedDateTime))
             {
-                formattedDateTime = parsedDateTime.ToString();
+                return parsedDateTime;
+            }
+            else
+            {
+                parsedDateTime = DateTime.Now;
             }
 
-            return formattedDateTime;
+            return parsedDateTime;
         }
     }
 }
+
+

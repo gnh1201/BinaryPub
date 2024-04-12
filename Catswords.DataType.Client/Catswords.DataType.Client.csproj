@@ -190,10 +190,17 @@
     <None Include="Resources\document_paperclip_list_paper_icon_219544.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\OneDrive\문서\GitHub\androidxmldotnet\AndroidXml\AndroidXml.csproj">
+      <Project>{607eeb2c-6b7c-409e-959e-3b458a109426}</Project>
+      <Name>AndroidXml</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\OneDrive\문서\GitHub\SsdeepNET\Source\SsdeepNET\SsdeepNET.csproj">
       <Project>{b1244c5a-cdeb-4d1d-8807-bf40251abcab}</Project>
       <Name>SsdeepNET</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2333410-android-os-smartphone_85588.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

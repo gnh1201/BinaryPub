@@ -30,6 +30,7 @@ namespace Catswords.DataType.Client
             // Set image size
             imageList.Images.Add(Properties.Resources.data_database_icon_177024);
             imageList.Images.Add(Properties.Resources.message_bubble_conversation_speech_communication_talk_chat_icon_219299);
+            imageList.Images.Add(Properties.Resources._2333410_android_os_smartphone_85588);
 
             // set image list
             listView1.SmallImageList = imageList;
@@ -72,11 +73,11 @@ namespace Catswords.DataType.Client
             // Get data from file extension database
             FetchFromFileExtensionDB();
 
-            // Get data from timeline
-            FetchFromTimeline();
-
             // Get data from Android manifest
             FetchFromAndroidManifest();
+
+            // Get data from timeline
+            FetchFromTimeline();
         }
 
         private void FetchFromFileExtensionDB()
@@ -85,7 +86,7 @@ namespace Catswords.DataType.Client
             search.Fetch(fileExtension);
             foreach (Indicator ind in search.Indicators)
             {
-                listView1.Items.Add(new ListViewItem(new string[] { ind.CreatedAt, ind.Content }, 0));
+                listView1.Items.Add(new ListViewItem(new string[] { ind.CreatedAt.ToString(), ind.Content }, 0));
             }
         }
 
@@ -143,7 +144,7 @@ namespace Catswords.DataType.Client
             // Show the timeline
             foreach (Indicator ind in search.Indicators)
             {
-                listView1.Items.Add(new ListViewItem(new string[] { ind.CreatedAt, ind.Content }, 1));
+                listView1.Items.Add(new ListViewItem(new string[] { ind.CreatedAt.ToString(), ind.Content }, 1));
             }
         }
 
@@ -152,10 +153,12 @@ namespace Catswords.DataType.Client
             if (fileExtension == "apk")
             {
                 var extractor = new ApkManifestExtractor(filePath);
+                extractor.Open();
                 foreach (AndroidPermission perm in extractor.GetPermissions())
                 {
-                    listView1.Items.Add(new ListViewItem(new string[] { perm.Name, perm.Description }));
+                    listView1.Items.Add(new ListViewItem(new string[] { perm.CreatedAt.ToString(), perm.Name + ' ' + perm.Description }, 2));
                 }
+                extractor.Close();
             }
         }
 

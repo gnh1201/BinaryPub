@@ -63,6 +63,16 @@ namespace Catswords.DataType.Client.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap _2333410_android_os_smartphone_85588 {
+            get {
+                object obj = ResourceManager.GetObject("_2333410_android_os_smartphone_85588", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap data_database_icon_177024 {
             get {
                 object obj = ResourceManager.GetObject("data_database_icon_177024", resourceCulture);

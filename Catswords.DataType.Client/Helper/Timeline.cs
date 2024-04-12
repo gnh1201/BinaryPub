@@ -33,21 +33,22 @@ namespace Catswords.DataType.Client.Helper
             return result;
         }
 
-        public static string FormatDateTime(string dateString)
+        public static DateTime GetDateTimeFromString(string dateString)
         {
-            string formattedDateTime = "";
+            DateTime localTime;
 
             // 날짜와 시간을 파싱
             if (DateTime.TryParseExact(dateString, "MM/dd/yyyy HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDateTime))
             {
                 // UTC에서 로컬 시간으로 변환
-                DateTime localTime = parsedDateTime.ToLocalTime();
-
-                // 현재 스레드의 문화권에 따라 날짜와 시간 출력
-                formattedDateTime = localTime.ToString();
+                localTime = parsedDateTime.ToLocalTime();
+            }
+            else
+            {
+                localTime = DateTime.Now;
             }
 
-            return formattedDateTime;
+            return localTime;
         }
 
         public void Fetch(string q)
@@ -78,7 +79,7 @@ namespace Catswords.DataType.Client.Helper
 
                         Indicators.Add(new Indicator
                         {
-                            CreatedAt = FormatDateTime(createdAt),
+                            CreatedAt = GetDateTimeFromString(createdAt),
                             Content = RemoveHtmlTags(content)
                         });
                     }

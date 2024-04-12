@@ -58,7 +58,7 @@
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Opinion";
+            this.columnHeader2.Text = "Description";
             this.columnHeader2.Width = 200;
             // 
             // label1

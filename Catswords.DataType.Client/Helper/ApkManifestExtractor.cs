@@ -1,9 +1,15 @@
-﻿using Catswords.DataType.Client.Model;
+﻿using AndroidXml;
+using Catswords.DataType.Client.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace Catswords.DataType.Client.Helper
 {
@@ -48,21 +54,30 @@ namespace Catswords.DataType.Client.Helper
         {
             List<AndroidPermission> permissions = new List<AndroidPermission>();
 
-            // Read the AndroidManifest.xml file
-            XmlDocument doc = new XmlDocument();
-            doc.Load(ManifestPath);
-
-            // Find all <uses-permission> elements
-            XmlNodeList permissionNodes = doc.GetElementsByTagName("uses-permission");
-            foreach (XmlNode node in permissionNodes)
+            using (FileStream stream = File.OpenRead(ManifestPath))
             {
-                // Extract permissions
-                permissions.Add(new AndroidPermission
+                // Read the AndroidManifest.xml file
+                var reader = new AndroidXmlReader(stream);
+                XDocument doc = XDocument.Load(reader);
+
+                // Find all <uses-permission> elements
+                var permissionNodes = doc.Descendants().Where(e => e.Name.LocalName == "uses-permission");
+                foreach (var node in permissionNodes)
                 {
-                    Name = node.Attributes["android:name"].Value,
-                    Description = "",
-                    Severity = 0
-                });
+                    foreach (var attr in node.Attributes())
+                    {
+                        if (attr.Name.LocalName == "name")
+                        {
+                            permissions.Add(new AndroidPermission
+                            {
+                                Name = attr.Value,
+                                Description = "",
+                                Severity = 0,
+                                CreatedAt = DateTime.Now
+                            });
+                        }
+                    }
+                }
             }
 
             return permissions;

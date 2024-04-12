@@ -8,5 +8,6 @@ namespace Catswords.DataType.Client.Model
         public string Description { get; set; }
         public int Severity { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Catswords.DataType.Client.Model
+﻿using System;
+
+namespace Catswords.DataType.Client.Model
 {
     public class FileHash
     {
@@ -11,5 +13,7 @@
         public string SHA256 { get; set; }
         public string InfoHash { get; set; }
         public string SSDEEP { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

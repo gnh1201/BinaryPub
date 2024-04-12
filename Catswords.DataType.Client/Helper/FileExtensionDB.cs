@@ -38,11 +38,48 @@ namespace Catswords.DataType.Client.Helper
                 // 각 아이템을 반복하며 정보 출력
                 foreach (XmlNode itemNode in itemList)
                 {
+                    // organization
+                    Indicators.Add(new Indicator()
+                    {
+                        Id = itemNode.SelectSingleNode("id").InnerText,
+                        CreatedAt = GetDateTimeFromString(itemNode.SelectSingleNode("datetime").InnerText),
+                        Content = "This format published by " + itemNode.SelectSingleNode("organization").InnerText,
+                        Url = ""
+                    });
+
+                    // description
                     Indicators.Add(new Indicator()
                     {
                         Id = itemNode.SelectSingleNode("id").InnerText,
                         CreatedAt = GetDateTimeFromString(itemNode.SelectSingleNode("datetime").InnerText),
                         Content = itemNode.SelectSingleNode("description").InnerText,
+                        Url = ""
+                    });
+
+                    // content
+                    Indicators.Add(new Indicator()
+                    {
+                        Id = itemNode.SelectSingleNode("id").InnerText,
+                        CreatedAt = GetDateTimeFromString(itemNode.SelectSingleNode("datetime").InnerText),
+                        Content = itemNode.SelectSingleNode("content").InnerText,
+                        Url = ""
+                    });
+
+                    // openwith
+                    Indicators.Add(new Indicator()
+                    {
+                        Id = itemNode.SelectSingleNode("id").InnerText,
+                        CreatedAt = GetDateTimeFromString(itemNode.SelectSingleNode("datetime").InnerText),
+                        Content = "Open with " + itemNode.SelectSingleNode("openwith").InnerText,
+                        Url = ""
+                    });
+
+                    // first reported
+                    Indicators.Add(new Indicator()
+                    {
+                        Id = itemNode.SelectSingleNode("id").InnerText,
+                        CreatedAt = GetDateTimeFromString(itemNode.SelectSingleNode("datetime").InnerText),
+                        Content = "This format first seen on " + GetDateTimeFromString(itemNode.SelectSingleNode("datetime").InnerText).ToString(),
                         Url = ""
                     });
                 }

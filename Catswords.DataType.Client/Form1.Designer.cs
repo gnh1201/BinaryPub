@@ -35,12 +35,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(384, 469);
+            this.ClientSize = new System.Drawing.Size(384, 517);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = global::Catswords.DataType.Client.Properties.Resources.icon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Catswords.DataType.Client";
-            this.Icon = Properties.Resources.icon;
             this.ResumeLayout(false);
 
         }

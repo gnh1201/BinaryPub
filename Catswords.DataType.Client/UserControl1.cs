@@ -28,6 +28,7 @@ namespace Catswords.DataType.Client
             imageList.Images.Add(Properties.Resources.message_bubble_conversation_speech_communication_talk_chat_icon_219299);
             imageList.Images.Add(Properties.Resources._2333410_android_os_smartphone_85588);
             imageList.Images.Add(Properties.Resources.office_18907);
+            imageList.Images.Add(Properties.Resources.link_symbol_icon_icons_com_56927);
 
             // set image list
             listView1.SmallImageList = imageList;
@@ -71,15 +72,18 @@ namespace Catswords.DataType.Client
             FetchFromFileExtensionDB();
 
             // Get data from Android manifest
-            FetchFromAndroidManifest();
+            ExtractAndroidManifest();
 
             // Get data from timeline
             FetchFromTimeline();
+
+            // Get links from file binary
+            ExtractLink();
         }
 
         private void FetchFromFileExtensionDB()
         {
-            var search = new Helper.FileExtensionDB();
+            var search = new FileExtensionDB();
             search.Fetch(fileExtension);
             foreach (Indicator ind in search.Indicators)
             {
@@ -90,7 +94,7 @@ namespace Catswords.DataType.Client
         private void FetchFromTimeline()
         {
             // Request a timeline
-            var search = new Helper.Timeline(Config.MASTODON_HOST, Config.MASTODON_ACCESS_TOKEN);
+            var search = new Timeline(Config.MASTODON_HOST, Config.MASTODON_ACCESS_TOKEN);
 
             // fetch data by file magic
             search.Fetch("0x" + fileMagic);
@@ -100,10 +104,10 @@ namespace Catswords.DataType.Client
             {
                 try
                 {
-                    string imphash = Helper.ImpHash.Calculate(filePath);
+                    string imphash = ImpHash.Calculate(filePath);
                     search.Fetch(imphash);
 
-                    string companyInfo = Helper.FileCompany.Read(filePath);
+                    string companyInfo = FileCompany.Read(filePath);
                     search.Fetch(companyInfo);
 
                     textBox1.Text = "ImpHash=" + imphash + "; CompanyInfo=" + companyInfo;
@@ -124,20 +128,7 @@ namespace Catswords.DataType.Client
                 {
                     if (fileExtension == "xlsx" || fileExtension == "pptx" || fileExtension == "docx")
                     {
-                        var extractor = new OpenXMLExtractor(filePath);
-                        extractor.Open();
-
-                        var metadata = extractor.GetMetadata();
-                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Author: " + metadata.Author }, 3));
-                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Title: " + metadata.Title }, 3));
-                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Subject: " + metadata.Subject }, 3));
-                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Category: " + metadata.Category }, 3));
-                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Description: " + metadata.Description }, 3));
-                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Created: " + metadata.CreatedAt.ToString() }, 3));
-                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Last updated: " + metadata.UpdatedAt.ToString() }, 3));
-                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Last updated by: " + metadata.LastUpdatedBy }, 3));
-                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Last printed: " + metadata.LastPrintedAt }, 3));
-                        extractor.Close();
+                        ExtractOpenXML();
                     }
 
                     search.Fetch("msoffice");
@@ -164,7 +155,7 @@ namespace Catswords.DataType.Client
             }
         }
 
-        private void FetchFromAndroidManifest()
+        private void ExtractAndroidManifest()
         {
             if (fileExtension == "apk")
             {
@@ -175,6 +166,34 @@ namespace Catswords.DataType.Client
                     listView1.Items.Add(new ListViewItem(new string[] { perm.CreatedAt.ToString(), perm.Name + ' ' + perm.Description }, 2));
                 }
                 extractor.Close();
+            }
+        }
+
+        private void ExtractOpenXML()
+        {
+            var extractor = new OpenXMLExtractor(filePath);
+            extractor.Open();
+
+            var metadata = extractor.GetMetadata();
+            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Author: " + metadata.Author }, 3));
+            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Title: " + metadata.Title }, 3));
+            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Subject: " + metadata.Subject }, 3));
+            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Category: " + metadata.Category }, 3));
+            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Description: " + metadata.Description }, 3));
+            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Created: " + metadata.CreatedAt.ToString() }, 3));
+            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Last updated: " + metadata.UpdatedAt.ToString() }, 3));
+            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Last updated by: " + metadata.LastUpdatedBy }, 3));
+            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Last printed: " + metadata.LastPrintedAt }, 3));
+            extractor.Close();
+        }
+
+        private void ExtractLink()
+        {
+            var extractor = new LinkExtractor(filePath);
+            string[] links = extractor.GetStrings();
+            foreach (string link in links)
+            {
+                listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), link }, 4));
             }
         }
 

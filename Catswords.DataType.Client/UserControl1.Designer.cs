@@ -46,7 +46,7 @@
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(18, 125);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(347, 277);
+            this.listView1.Size = new System.Drawing.Size(347, 339);
             this.listView1.TabIndex = 8;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -75,7 +75,7 @@
             // 
             this.textBox1.BackColor = System.Drawing.Color.White;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(16, 445);
+            this.textBox1.Location = new System.Drawing.Point(16, 496);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(349, 13);
@@ -94,7 +94,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(15, 416);
+            this.linkLabel1.Location = new System.Drawing.Point(13, 475);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(122, 13);
             this.linkLabel1.TabIndex = 9;
@@ -104,7 +104,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(280, 411);
+            this.button1.Location = new System.Drawing.Point(280, 470);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 23);
             this.button1.TabIndex = 12;
@@ -126,7 +126,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.linkLabel1);
             this.Name = "UserControl1";
-            this.Size = new System.Drawing.Size(433, 457);
+            this.Size = new System.Drawing.Size(388, 517);
             this.ResumeLayout(false);
             this.PerformLayout();
 

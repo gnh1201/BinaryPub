@@ -113,6 +113,16 @@ namespace Catswords.DataType.Client.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap link_symbol_icon_icons_com_56927 {
+            get {
+                object obj = ResourceManager.GetObject("link_symbol_icon_icons_com_56927", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap message_bubble_conversation_speech_communication_talk_chat_icon_219299 {
             get {
                 object obj = ResourceManager.GetObject("message_bubble_conversation_speech_communication_talk_chat_icon_219299", resourceCulture);

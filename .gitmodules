@@ -1,0 +1,6 @@
+[submodule "SsdeepNET"]
+	path = SsdeepNET
+	url = https://github.com/kolos450/SsdeepNET
+[submodule "androidxmldotnet"]
+	path = androidxmldotnet
+	url = https://github.com/quamotion/androidxmldotnet

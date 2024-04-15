@@ -108,13 +108,15 @@
     <Compile Include="Helper\ApkManifestExtractor.cs" />
     <Compile Include="Helper\FileHasher.cs" />
     <Compile Include="Helper\FileExtensionDB.cs" />
-    <Compile Include="Helper\FileCompany.cs" />
+    <Compile Include="Helper\PeOrganizationExtractor.cs" />
     <Compile Include="Helper\FileMagic.cs" />
     <Compile Include="Helper\LinkExtractor.cs" />
     <Compile Include="Helper\ImpHash.cs" />
+    <Compile Include="Helper\ExifTagExtractor.cs" />
     <Compile Include="Helper\OpenXMLExtractor.cs" />
     <Compile Include="Helper\Timeline.cs" />
     <Compile Include="Model\AndroidPermission.cs" />
+    <Compile Include="Model\ExifTag.cs" />
     <Compile Include="Model\FileHash.cs" />
     <Compile Include="Model\Indicator.cs" />
     <Compile Include="Model\OpenXMLMetadata.cs" />
@@ -193,6 +195,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\link-symbol_icon-icons.com_56927.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tags_icon-icons.com_73382.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

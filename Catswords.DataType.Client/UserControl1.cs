@@ -1,11 +1,8 @@
 ﻿using Catswords.DataType.Client.Helper;
 using Catswords.DataType.Client.Model;
 using System;
-using System.ComponentModel.Design;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Catswords.DataType.Client
@@ -29,6 +26,7 @@ namespace Catswords.DataType.Client
             imageList.Images.Add(Properties.Resources._2333410_android_os_smartphone_85588);
             imageList.Images.Add(Properties.Resources.office_18907);
             imageList.Images.Add(Properties.Resources.link_symbol_icon_icons_com_56927);
+            imageList.Images.Add(Properties.Resources.tags_icon_icons_com_73382);
 
             // set image list
             listView1.SmallImageList = imageList;
@@ -77,8 +75,11 @@ namespace Catswords.DataType.Client
             // Get data from timeline
             FetchFromTimeline();
 
-            // Get links from file binary
+            // Get links from file
             ExtractLink();
+
+            // Get EXIF tags from file
+            ExtractExif();
         }
 
         private void FetchFromFileExtensionDB()
@@ -107,10 +108,11 @@ namespace Catswords.DataType.Client
                     string imphash = ImpHash.Calculate(filePath);
                     search.Fetch(imphash);
 
-                    string companyInfo = FileCompany.Read(filePath);
-                    search.Fetch(companyInfo);
+                    string organization = (new PeOrganizationExtractor(filePath)).GetString();
+                    search.Fetch(organization);
+                    listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "This file are distributed by " + organization }, 4));
 
-                    textBox1.Text = "ImpHash=" + imphash + "; CompanyInfo=" + companyInfo;
+                    textBox1.Text = "ImpHash=" + imphash + "; Organization=" + organization;
                 }
                 catch (Exception ex)
                 {
@@ -190,10 +192,20 @@ namespace Catswords.DataType.Client
         private void ExtractLink()
         {
             var extractor = new LinkExtractor(filePath);
-            string[] links = extractor.GetStrings();
-            foreach (string link in links)
+            var strings = extractor.GetStrings();
+            foreach (string str in strings)
             {
-                listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), link }, 4));
+                listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), str }, 4));
+            }
+        }
+
+        private void ExtractExif()
+        {
+            var extractor = new ExifTagExtractor(filePath);
+            var tags = extractor.GetTags();
+            foreach (ExifTag tag in tags)
+            {
+                listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), $"{tag.Name} ({tag.Section}): {tag.Description}" }, 5));
             }
         }
 

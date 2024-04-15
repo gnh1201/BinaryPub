@@ -73,7 +73,7 @@ namespace Catswords.DataType.Client.Helper
             }
         }
 
-        public string[] GetStrings()
+        public List<string> GetStrings()
         {
             List<string> results = new List<string>();
 
@@ -111,7 +111,7 @@ namespace Catswords.DataType.Client.Helper
                 MessageBox.Show($"An error occurred: {ex.Message}");
             }
 
-            return results.ToArray();
+            return results;
         }
     }
 }

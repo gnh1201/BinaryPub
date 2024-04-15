@@ -1,4 +1,4 @@
-﻿using Catswords.DataType.Client.Helper;
+using Catswords.DataType.Client.Helper;
 using Catswords.DataType.Client.Model;
 using System;
 using System.ComponentModel.Design;
@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 
 namespace Catswords.DataType.Client
@@ -81,14 +82,56 @@ namespace Catswords.DataType.Client
             ExtractLink();
         }
 
+        bool IsInternetConnected()
+        {
+            const string NCSI_TEST_URL = "http://www.msftncsi.com/ncsi.txt";
+            const string NCSI_TEST_RESULT = "Microsoft NCSI";
+            const string NCSI_DNS = "dns.msftncsi.com";
+            const string NCSI_DNS_IP_ADDRESS = "131.107.255.255";
+
+            try
+            {
+                // Check NCSI test link
+                var webClient = new WebClient();
+                string result = webClient.DownloadString(NCSI_TEST_URL);
+                if (result != NCSI_TEST_RESULT)
+                {
+                    return false;
+                }
+
+                // Check NCSI DNS IP
+                var dnsHost = Dns.GetHostEntry(NCSI_DNS);
+                if (dnsHost.AddressList.Count() < 0 || dnsHost.AddressList[0].ToString() != NCSI_DNS_IP_ADDRESS)
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return false;
+            }
+
+            return true;
+        }
+
         private void FetchFromFileExtensionDB()
         {
-            var search = new FileExtensionDB();
+            if (IsInternetConnected())
+
+            {
+
+                var search = new FileExtensionDB();
             search.Fetch(fileExtension);
             foreach (Indicator ind in search.Indicators)
             {
                 listView1.Items.Add(new ListViewItem(new string[] { ind.CreatedAt.ToString(), ind.Content }, 0));
             }
+            } else
+            {
+                MessageBox.Show("네트워크 상태 좋지 않습니다.");
+            }
+
         }
 
         private void FetchFromTimeline()

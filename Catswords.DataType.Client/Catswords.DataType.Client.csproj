@@ -102,10 +102,12 @@
     <Compile Include="Helper\FileCompany.cs" />
     <Compile Include="Helper\FileMagic.cs" />
     <Compile Include="Helper\ImpHash.cs" />
+    <Compile Include="Helper\OpenXMLExtractor.cs" />
     <Compile Include="Helper\Timeline.cs" />
     <Compile Include="Model\AndroidPermission.cs" />
     <Compile Include="Model\FileHash.cs" />
     <Compile Include="Model\Indicator.cs" />
+    <Compile Include="Model\OpenXMLMetadata.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControl1.cs">
@@ -133,6 +135,7 @@
     <EmbeddedResource Include="UserControl1.resx">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="LICENSE" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -201,6 +204,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\2333410-android-os-smartphone_85588.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\office_18907.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

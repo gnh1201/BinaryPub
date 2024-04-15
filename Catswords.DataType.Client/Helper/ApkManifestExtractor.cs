@@ -5,23 +5,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Windows.Forms;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace Catswords.DataType.Client.Helper
 {
     class ApkManifestExtractor
     {
-        private string ApkPath;
+        private string FilePath;
         private string TempDirectory;
-        private string ManifestPath;
+        private string TargetPath;
 
-        public ApkManifestExtractor(string ApkPath)
+        public ApkManifestExtractor(string filePath)
         {
-            this.ApkPath = ApkPath;
+            FilePath = filePath;
         }
 
         public void Open()
@@ -30,14 +26,14 @@ namespace Catswords.DataType.Client.Helper
             TempDirectory = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
             Directory.CreateDirectory(TempDirectory);
 
-            using (ZipArchive apkArchive = ZipFile.OpenRead(ApkPath))
+            using (ZipArchive apkArchive = ZipFile.OpenRead(FilePath))
             {
                 foreach (ZipArchiveEntry entry in apkArchive.Entries)
                 {
                     if (entry.FullName == "AndroidManifest.xml")
                     {
-                        ManifestPath = Path.Combine(TempDirectory, entry.FullName);
-                        entry.ExtractToFile(ManifestPath);
+                        TargetPath = Path.Combine(TempDirectory, entry.FullName);
+                        entry.ExtractToFile(TargetPath);
                         break;
                     }
                 }
@@ -54,7 +50,7 @@ namespace Catswords.DataType.Client.Helper
         {
             List<AndroidPermission> permissions = new List<AndroidPermission>();
 
-            using (FileStream stream = File.OpenRead(ManifestPath))
+            using (FileStream stream = File.OpenRead(TargetPath))
             {
                 // Read the AndroidManifest.xml file
                 var reader = new AndroidXmlReader(stream);

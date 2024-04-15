@@ -13,7 +13,6 @@ namespace Catswords.DataType.Client
     public partial class UserControl1 : UserControl
     {
         private ImageList imageList = new ImageList();
-        private Form parent;
 
         public string filePath;
         public string fileMagic;
@@ -24,13 +23,11 @@ namespace Catswords.DataType.Client
         {
             InitializeComponent();
 
-            // set parent form
-            this.parent = parent;
-
             // Set image size
             imageList.Images.Add(Properties.Resources.data_database_icon_177024);
             imageList.Images.Add(Properties.Resources.message_bubble_conversation_speech_communication_talk_chat_icon_219299);
             imageList.Images.Add(Properties.Resources._2333410_android_os_smartphone_85588);
+            imageList.Images.Add(Properties.Resources.office_18907);
 
             // set image list
             listView1.SmallImageList = imageList;
@@ -45,13 +42,13 @@ namespace Catswords.DataType.Client
             }
 
             // Get first 4 bytes from the file.
-            fileMagic = Helper.FileMagic.Read(filePath);
+            fileMagic = FileMagic.Read(filePath);
 
             // Show file magic to the label
             label1.Text = "#0x" + fileMagic;
-            if (Helper.FileMagic.Error != string.Empty)
+            if (FileMagic.Error != string.Empty)
             {
-                textBox1.Text = Helper.FileMagic.Error;
+                textBox1.Text = FileMagic.Error;
             }
 
             // Get file name and file extension
@@ -125,6 +122,25 @@ namespace Catswords.DataType.Client
                 // if Office365 format
                 if (fileExtension.StartsWith("xls") || fileExtension.StartsWith("ppt") || fileExtension.StartsWith("doc"))
                 {
+                    if (fileExtension == "xlsx" || fileExtension == "pptx" || fileExtension == "docx")
+                    {
+                        var extractor = new OpenXMLExtractor(filePath);
+                        extractor.Open();
+
+                        var metadata = extractor.GetMetadata();
+                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Author: " + metadata.Author }, 3));
+                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Title: " + metadata.Title }, 3));
+                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Subject: " + metadata.Subject }, 3));
+                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Category: " + metadata.Category }, 3));
+                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Description: " + metadata.Description }, 3));
+                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Created: " + metadata.CreatedAt.ToString() }, 3));
+                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Last updated: " + metadata.UpdatedAt.ToString() }, 3));
+                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Last updated by: " + metadata.LastUpdatedBy }, 3));
+                        listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Last printed: " + metadata.LastPrintedAt }, 3));
+                        extractor.Close();
+                    }
+
+                    search.Fetch("msoffice");
                     search.Fetch("office365");
                 }
             }

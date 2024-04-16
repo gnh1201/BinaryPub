@@ -1,6 +1,7 @@
 ﻿using Catswords.DataType.Client.Helper;
 using Catswords.DataType.Client.Model;
 using System;
+using System.Threading.Tasks;
 
 namespace Catswords.DataType.Client
 {
@@ -137,6 +138,18 @@ namespace Catswords.DataType.Client
             {
                 Parent.AddIndicator(DateTime.Now, $"{tag.Name} ({tag.Section}): {tag.Description}", 5);
             }
+        }
+
+        public void Run()
+        {
+            new Task(() =>
+            {
+                FromFileExtension();    // Get data from file extension database
+                FromAndroidManifest();    // Get data from Android manifest
+                FromTimeline();   // Get data from timeline
+                FromLinks();  // Get links from file
+                FromExif();  //  Get EXIF tags from file
+            }).Start();
         }
     }
 }

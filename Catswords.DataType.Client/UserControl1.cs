@@ -66,13 +66,8 @@ namespace Catswords.DataType.Client
                 FileName = "";
             }
 
-            // Extract
-            var worker = new Worker(this);
-            worker.FromFileExtension();    // Get data from file extension database
-            worker.FromAndroidManifest();    // Get data from Android manifest
-            worker.FromTimeline();   // Get data from timeline
-            worker.FromLinks();  // Get links from file
-            worker.FromExif();  //  Get EXIF tags from file
+            // Run the worker
+            (new Worker(this)).Run();
         }
 
         public string OpenFileDialog()
@@ -93,12 +88,32 @@ namespace Catswords.DataType.Client
 
         public void AddIndicator(DateTime dt, string Description, int ImageIndex)
         {
-            listView1.Items.Add(new ListViewItem(new string[] { dt.ToString(), Description }, ImageIndex));
+            if (listView1.InvokeRequired) {
+                listView1.Invoke(new MethodInvoker(delegate
+                {
+                    listView1.Items.Add(new ListViewItem(new string[] { dt.ToString(), Description }, ImageIndex));
+                }));
+            }
+            else
+            {
+                listView1.Items.Add(new ListViewItem(new string[] { dt.ToString(), Description }, ImageIndex));
+            }
+            
         }
 
         public void ShowStatus(string status)
         {
-            textBox1.Text = status;
+            if (textBox1.InvokeRequired)
+            {
+                textBox1.Invoke(new MethodInvoker(delegate
+                {
+                    textBox1.Text = status;
+                }));
+            }
+            else
+            {
+                textBox1.Text = status;
+            }
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -1,7 +1,14 @@
 ﻿namespace Catswords.DataType.Client.Helper
 {
-    internal class CbpfExtractor
+    public class CbpfExtractor
     {
+        private string FilePath;
+
+        public CbpfExtractor(string filePath)
+        {
+            FilePath = filePath;
+        }
+
 
     }
 }

@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // 제어됩니다. 어셈블리와 관련된 정보를 수정하려면
 // 이러한 특성 값을 변경하세요.
 [assembly: AssemblyTitle("Catswords.DataType.Client")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("File reputation checker with Social media timeline")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Catswords Research, Co.")]
 [assembly: AssemblyProduct("Catswords.DataType.Client")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Namhyeon Go, Opensource licensed under GPL 3.0")]
+[assembly: AssemblyTrademark("Catswords")]
 [assembly: AssemblyCulture("")]
 
 // ComVisible을 false로 설정하면 이 어셈블리의 형식이 COM 구성 요소에 

@@ -1,6 +1,4 @@
-﻿using BencodeNET.Parsing;
-using BencodeNET.Torrents;
-using Force.Crc32;
+﻿using Force.Crc32;
 using SsdeepNET;
 using System;
 using System.IO;
@@ -20,26 +18,26 @@ namespace Catswords.DataType.Client.Helper
 
         public string GetExtension()
         {
+            string extension = string.Empty;
+
             try
             {
                 if (Path.GetExtension(FilePath).Length > 0)
                 {
-                    return Path.GetExtension(FilePath).Substring(1).ToUpper();
-                }
-                else
-                {
-                    return "";
+                    extension = Path.GetExtension(FilePath).Substring(1).ToLower();
                 }
             }
-            catch (Exception)
+            catch
             {
-                return "";
+                // nothing
             }
+
+            return extension;
         }
 
         public string GetMD5()
         {
-            string checksum = "";
+            string checksum = string.Empty;
 
             using (MD5 hasher = MD5.Create())
             {
@@ -55,7 +53,7 @@ namespace Catswords.DataType.Client.Helper
 
         public string GetSHA1()
         {
-            string checksum = "";
+            string checksum = string.Empty;
 
             using (SHA1 hasher = SHA1.Create())
             {
@@ -71,7 +69,7 @@ namespace Catswords.DataType.Client.Helper
 
         public string GetCRC32()
         {
-            string checksum = "";
+            string checksum = string.Empty;
 
             using (FileStream stream = File.OpenRead(FilePath))
             {
@@ -85,7 +83,7 @@ namespace Catswords.DataType.Client.Helper
 
         public string GetSHA256()
         {
-            string checksum = "";
+            string checksum = string.Empty;
 
             using (SHA256 hasher = SHA256.Create())
             {
@@ -134,14 +132,13 @@ namespace Catswords.DataType.Client.Helper
 
         public string GetInfoHash()
         {
-            string checksum = "";
+            string checksum = string.Empty;
             string extension = GetExtension().ToLower();
 
             if (extension == "torrent")
             {
-                BencodeParser parser = new BencodeParser();
-                Torrent torrent = parser.Parse<Torrent>(FilePath);
-                checksum = BitConverter.ToString(torrent.GetInfoHashBytes()).Replace("-", "").ToLowerInvariant();
+                var extractor = new InfoHashExtractor(FilePath);
+                checksum = extractor.GetString();
             }
 
             return checksum;
@@ -149,7 +146,7 @@ namespace Catswords.DataType.Client.Helper
 
         public string GetSSDEEP()
         {
-            string checksum = "";
+            string checksum = string.Empty;
 
             using (FileStream stream = File.OpenRead(FilePath))
             {
@@ -165,7 +162,7 @@ namespace Catswords.DataType.Client.Helper
 
         public string GetHexView(byte[] Data)
         {
-            string output = "";
+            string output = string.Empty;
 
             StringBuilder strb = new StringBuilder();
             StringBuilder text = new StringBuilder();

@@ -1,6 +1,6 @@
 ﻿namespace Catswords.DataType.Client.Model
 {
-    public class FileHash: Timestamp
+    class HashInfo: Timestamp
     {
         public string Path { get; set; }
         public string Extension { get; set; }

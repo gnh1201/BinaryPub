@@ -1,6 +1,5 @@
 ﻿using BencodeNET.Parsing;
 using BencodeNET.Torrents;
-using Catswords.DataType.Client.Model;
 using Force.Crc32;
 using SsdeepNET;
 using System;
@@ -12,29 +11,20 @@ namespace Catswords.DataType.Client.Helper
 {
     public class FileHasher
     {
-        public static FileHash Compute(string filename)
+        private string FilePath;
+
+        public FileHasher(string filePath)
         {
-            string extension = GetExtension(filename);
-            return new FileHash
-            {
-                Extension = extension,
-                MD5 = GetMD5(filename),
-                SHA1 = GetSHA1(filename),
-                MAGIC = GetMAGIC(filename),
-                CRC32 = GetCRC32(filename),
-                SHA256 = GetSHA256(filename),
-                InfoHash = GetInfoHash(filename, extension),
-                SSDEEP = GetSSDEEP(filename)
-            };
+            FilePath = filePath;
         }
 
-        private static string GetExtension(string filename)
+        public string GetExtension()
         {
             try
             {
-                if (Path.GetExtension(filename).Length > 0)
+                if (Path.GetExtension(FilePath).Length > 0)
                 {
-                    return Path.GetExtension(filename).Substring(1).ToUpper();
+                    return Path.GetExtension(FilePath).Substring(1).ToUpper();
                 }
                 else
                 {
@@ -47,13 +37,13 @@ namespace Catswords.DataType.Client.Helper
             }
         }
 
-        private static string GetMD5(string filename)
+        public string GetMD5()
         {
             string checksum = "";
 
             using (MD5 hasher = MD5.Create())
             {
-                using (FileStream stream = File.OpenRead(filename))
+                using (FileStream stream = File.OpenRead(FilePath))
                 {
                     byte[] hash = hasher.ComputeHash(stream);
                     checksum = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
@@ -63,13 +53,13 @@ namespace Catswords.DataType.Client.Helper
             return checksum;
         }
 
-        private static string GetSHA1(string filename)
+        public string GetSHA1()
         {
             string checksum = "";
 
             using (SHA1 hasher = SHA1.Create())
             {
-                using (FileStream stream = File.OpenRead(filename))
+                using (FileStream stream = File.OpenRead(FilePath))
                 {
                     byte[] hash = hasher.ComputeHash(stream);
                     checksum = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
@@ -79,11 +69,11 @@ namespace Catswords.DataType.Client.Helper
             return checksum;
         }
 
-        private static string GetCRC32(string filename)
+        public string GetCRC32()
         {
             string checksum = "";
 
-            using (FileStream stream = File.OpenRead(filename))
+            using (FileStream stream = File.OpenRead(FilePath))
             {
                 MemoryStream ms = new MemoryStream();
                 stream.CopyTo(ms);
@@ -93,13 +83,13 @@ namespace Catswords.DataType.Client.Helper
             return checksum;
         }
 
-        private static string GetSHA256(string filename)
+        public string GetSHA256()
         {
             string checksum = "";
 
             using (SHA256 hasher = SHA256.Create())
             {
-                using (FileStream stream = File.OpenRead(filename))
+                using (FileStream stream = File.OpenRead(FilePath))
                 {
                     var hash = hasher.ComputeHash(stream);
                     checksum = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
@@ -109,11 +99,11 @@ namespace Catswords.DataType.Client.Helper
             return checksum;
         }
 
-        public static byte[] GetFileBytes(string filename, int count = 32)
+        public byte[] GetFileBytes(int count = 32)
         {
             byte[] buffer = new byte[count];
 
-            using (var stream = File.OpenRead(filename))
+            using (var stream = File.OpenRead(FilePath))
             {
                 int offset = 0;
                 while (offset < count)
@@ -122,7 +112,7 @@ namespace Catswords.DataType.Client.Helper
                     {
                         int read = stream.Read(buffer, offset, count - offset);
                         if (read == 0)
-                            throw new System.IO.EndOfStreamException();
+                            throw new EndOfStreamException();
                         offset += read;
                     }
                     catch (EndOfStreamException)
@@ -137,30 +127,31 @@ namespace Catswords.DataType.Client.Helper
             return buffer;
         }
 
-        private static string GetMAGIC(string filename)
+        public string GetMagic()
         {
-            return new FileMagicExtractor(filename).GetString();
+            return new FileMagicExtractor(FilePath).GetString();
         }
 
-        private static string GetInfoHash(string filename, string extension)
+        public string GetInfoHash()
         {
             string checksum = "";
+            string extension = GetExtension().ToLower();
 
-            if (extension.ToUpper() == "TORRENT")
+            if (extension == "torrent")
             {
                 BencodeParser parser = new BencodeParser();
-                Torrent torrent = parser.Parse<Torrent>(filename);
+                Torrent torrent = parser.Parse<Torrent>(FilePath);
                 checksum = BitConverter.ToString(torrent.GetInfoHashBytes()).Replace("-", "").ToLowerInvariant();
             }
 
             return checksum;
         }
 
-        private static string GetSSDEEP(string filename)
+        public string GetSSDEEP()
         {
             string checksum = "";
 
-            using (FileStream stream = File.OpenRead(filename))
+            using (FileStream stream = File.OpenRead(FilePath))
             {
                 MemoryStream ms = new MemoryStream();
                 stream.CopyTo(ms);
@@ -172,7 +163,7 @@ namespace Catswords.DataType.Client.Helper
             return checksum;
         }
 
-        public static string GetHexView(byte[] Data)
+        public string GetHexView(byte[] Data)
         {
             string output = "";
 

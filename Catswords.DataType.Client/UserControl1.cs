@@ -67,7 +67,7 @@ namespace Catswords.DataType.Client
             }
 
             // Run the worker
-            (new Worker(this)).Run();
+            (new Worker1(this)).Run();
         }
 
         public string OpenFileDialog()
@@ -123,8 +123,19 @@ namespace Catswords.DataType.Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form newForm = new Form2(this);
-            newForm.Show();
+            Form form = new Form
+            {
+                Text = "Expert",
+                FormBorderStyle = FormBorderStyle.FixedSingle,
+                Icon = Properties.Resources.icon,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                Width = 450,
+                Height = 560,
+                BackColor = System.Drawing.SystemColors.Window
+            };
+            form.Controls.Add(new UserControl2(this));
+            form.Show();
         }
     }
 }

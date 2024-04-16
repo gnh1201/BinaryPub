@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Catswords.DataType.Client
 {
-    public class Worker
+    public class Worker1
     {
         private UserControl1 Parent;
 
-        public Worker(UserControl1 parent)
+        public Worker1(UserControl1 parent)
         {
             Parent = parent;
         }

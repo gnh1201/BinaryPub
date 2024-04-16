@@ -1,6 +1,6 @@
 ﻿namespace Catswords.DataType.Client
 {
-    partial class Form2
+    partial class UserControl2
     {
         /// <summary>
         /// Required designer variable.
@@ -76,6 +76,7 @@
             this.txtExtension.Name = "txtExtension";
             this.txtExtension.Size = new System.Drawing.Size(284, 20);
             this.txtExtension.TabIndex = 1;
+            this.txtExtension.Text = "Calculating...";
             // 
             // txtHashSha256
             // 
@@ -83,6 +84,7 @@
             this.txtHashSha256.Name = "txtHashSha256";
             this.txtHashSha256.Size = new System.Drawing.Size(284, 20);
             this.txtHashSha256.TabIndex = 1;
+            this.txtHashSha256.Text = "Calculating...";
             // 
             // txtMagic
             // 
@@ -90,6 +92,7 @@
             this.txtMagic.Name = "txtMagic";
             this.txtMagic.Size = new System.Drawing.Size(284, 20);
             this.txtMagic.TabIndex = 1;
+            this.txtMagic.Text = "Calculating...";
             // 
             // txtHashCrc32
             // 
@@ -97,6 +100,7 @@
             this.txtHashCrc32.Name = "txtHashCrc32";
             this.txtHashCrc32.Size = new System.Drawing.Size(284, 20);
             this.txtHashCrc32.TabIndex = 1;
+            this.txtHashCrc32.Text = "Calculating...";
             // 
             // txtHashSha1
             // 
@@ -104,6 +108,7 @@
             this.txtHashSha1.Name = "txtHashSha1";
             this.txtHashSha1.Size = new System.Drawing.Size(284, 20);
             this.txtHashSha1.TabIndex = 1;
+            this.txtHashSha1.Text = "Calculating...";
             // 
             // txtHashMd5
             // 
@@ -111,6 +116,7 @@
             this.txtHashMd5.Name = "txtHashMd5";
             this.txtHashMd5.Size = new System.Drawing.Size(284, 20);
             this.txtHashMd5.TabIndex = 1;
+            this.txtHashMd5.Text = "Calculating...";
             // 
             // labelLocale
             // 
@@ -190,6 +196,7 @@
             this.txtInfoHash.Name = "txtInfoHash";
             this.txtInfoHash.Size = new System.Drawing.Size(284, 20);
             this.txtInfoHash.TabIndex = 1;
+            this.txtInfoHash.Text = "Calculating...";
             // 
             // labelTools
             // 
@@ -229,6 +236,7 @@
             this.txtSsdeep.Name = "txtSsdeep";
             this.txtSsdeep.Size = new System.Drawing.Size(284, 20);
             this.txtSsdeep.TabIndex = 9;
+            this.txtSsdeep.Text = "Calculating...";
             // 
             // labelSsdeep
             // 
@@ -269,14 +277,8 @@
             this.Controls.Add(this.labelInfoHash);
             this.Controls.Add(this.labelLocale);
             this.Controls.Add(this.labelExtension);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = global::Catswords.DataType.Client.Properties.Resources.icon;
-            this.KeyPreview = true;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "Form2";
             this.Text = "Expert";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

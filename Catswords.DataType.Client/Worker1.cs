@@ -1,5 +1,6 @@
 ﻿using Catswords.DataType.Client.Helper;
 using Catswords.DataType.Client.Model;
+using MetadataExtractor;
 using System;
 using System.Threading.Tasks;
 
@@ -140,6 +141,16 @@ namespace Catswords.DataType.Client
             }
         }
 
+        public void FormCfbf()
+        {
+            var extractor = new CfbfExtractor(Parent.FilePath);
+            var parts = extractor.GetParts();
+            foreach (CfbfPartInfo part in parts)
+            {
+                Parent.AddIndicator(DateTime.Now, $"CFBF: {part.Content} ({part.ContentType}, {part.URI})", 5);
+            }
+        }
+
         public void Run()
         {
             new Task(() =>
@@ -148,7 +159,8 @@ namespace Catswords.DataType.Client
                 FromAndroidManifest();    // Get data from Android manifest
                 FromTimeline();   // Get data from timeline
                 FromLinks();  // Get links from file
-                FromExif();  //  Get EXIF tags from file
+                FromExif();  // Get EXIF tags from file
+                FormCfbf();  // Get CFBF (aka. OLE) parts from file
             }).Start();
         }
     }

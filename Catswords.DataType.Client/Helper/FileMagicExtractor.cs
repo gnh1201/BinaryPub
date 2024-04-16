@@ -3,18 +3,24 @@ using System.IO;
 
 namespace Catswords.DataType.Client.Helper
 {
-    public static class FileMagic
+    public class FileMagicExtractor
     {
-        public static string Error = string.Empty;
+        private string FilePath;
+        private string Error = null;
 
-        public static string Read(string filePath)
+        public FileMagicExtractor(string filePath)
+        {
+            FilePath = filePath;
+        }
+
+        public string GetString()
         {
             string hexString = "";
 
             try
             {
                 // 파일 열기
-                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                using (FileStream fs = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
                 {
                     // 첫 3 바이트 읽기
                     byte[] buffer = new byte[3] { 0x00, 0x00, 0x00 };
@@ -31,6 +37,11 @@ namespace Catswords.DataType.Client.Helper
             }
 
             return hexString;
+        }
+
+        public string GetError()
+        {
+            return Error;
         }
     }
 }

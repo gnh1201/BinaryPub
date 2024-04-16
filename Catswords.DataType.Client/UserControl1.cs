@@ -1,5 +1,4 @@
 ﻿using Catswords.DataType.Client.Helper;
-using Catswords.DataType.Client.Model;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -11,10 +10,10 @@ namespace Catswords.DataType.Client
     {
         private ImageList imageList = new ImageList();
 
-        public string filePath;
-        public string fileMagic;
-        public string fileName;
-        public string fileExtension;
+        public string FilePath;
+        public string FileMagic;
+        public string FileName;
+        public string FileExtension;
 
         public UserControl1(Form parent)
         {
@@ -32,8 +31,8 @@ namespace Catswords.DataType.Client
             listView1.SmallImageList = imageList;
 
             // Store the file path.
-            filePath = OpenFileDialog();
-            if (string.IsNullOrEmpty(filePath))
+            FilePath = OpenFileDialog();
+            if (string.IsNullOrEmpty(FilePath))
             {
                 MessageBox.Show("Failed to get a file name", "Catswords.DataType.Client");
                 parent.Close();
@@ -41,172 +40,39 @@ namespace Catswords.DataType.Client
             }
 
             // Get first 4 bytes from the file.
-            fileMagic = FileMagic.Read(filePath);
+            var extractor = new FileMagicExtractor(FilePath);
+            FileMagic = extractor.GetString();
 
             // Show file magic to the label
-            label1.Text = "#0x" + fileMagic;
-            if (FileMagic.Error != string.Empty)
+            label1.Text = "#0x" + FileMagic;
+            if (extractor.GetError() != null)
             {
-                textBox1.Text = FileMagic.Error;
+                ShowStatus(extractor.GetError());
             }
 
             // Get file name and file extension
             try
             {
-                fileExtension = Path.GetExtension(filePath);
-                fileName = Path.GetFileName(filePath);
-                if (fileExtension.Length > 0 && fileExtension.Substring(0, 1) == ".")
+                FileExtension = Path.GetExtension(FilePath);
+                FileName = Path.GetFileName(FilePath);
+                if (FileExtension.Length > 0 && FileExtension.Substring(0, 1) == ".")
                 {
-                    fileExtension = fileExtension.Substring(1);
+                    FileExtension = FileExtension.Substring(1);
                 }
             }
             catch
             {
-                fileExtension = "";
-                fileName = "";
+                FileExtension = "";
+                FileName = "";
             }
 
-            // Get data from file extension database
-            FetchFromFileExtensionDB();
-
-            // Get data from Android manifest
-            ExtractAndroidManifest();
-
-            // Get data from timeline
-            FetchFromTimeline();
-
-            // Get links from file
-            ExtractLink();
-
-            // Get EXIF tags from file
-            ExtractExif();
-        }
-
-        private void FetchFromFileExtensionDB()
-        {
-            var search = new FileExtensionDB();
-            search.Fetch(fileExtension);
-            foreach (Indicator ind in search.Indicators)
-            {
-                listView1.Items.Add(new ListViewItem(new string[] { ind.CreatedAt.ToString(), ind.Content }, 0));
-            }
-        }
-
-        private void FetchFromTimeline()
-        {
-            // Request a timeline
-            var search = new Timeline(Config.MASTODON_HOST, Config.MASTODON_ACCESS_TOKEN);
-
-            // fetch data by file magic
-            search.Fetch("0x" + fileMagic);
-
-            // if PE format (ImpHash)
-            if (fileMagic.StartsWith("4d5a"))
-            {
-                try
-                {
-                    string imphash = ImpHash.Calculate(filePath);
-                    search.Fetch(imphash);
-
-                    string organization = (new PeOrganizationExtractor(filePath)).GetString();
-                    search.Fetch(organization);
-                    listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "This file are distributed by " + organization }, 4));
-
-                    textBox1.Text = "ImpHash=" + imphash + "; Organization=" + organization;
-                }
-                catch (Exception ex)
-                {
-                    textBox1.Text = ex.Message;
-                }
-            }
-
-            // fetch data by file extension
-            if (fileExtension.Length > 0)
-            {
-                search.Fetch(fileExtension);
-
-                // if Office365 format
-                if (fileExtension.StartsWith("xls") || fileExtension.StartsWith("ppt") || fileExtension.StartsWith("doc"))
-                {
-                    if (fileExtension == "xlsx" || fileExtension == "pptx" || fileExtension == "docx")
-                    {
-                        ExtractOpenXML();
-                    }
-
-                    search.Fetch("msoffice");
-                    search.Fetch("office365");
-                }
-            }
-
-            // if it contains ransomware keywords
-            if (fileName.ToLower().Contains("readme") || fileName.ToLower().Contains("decrypt"))
-            {
-                search.Fetch("ransomware");
-            }
-
-            // if IoC (Indicators of Compomise) mode
-            if (fileMagic == "58354f")    // EICAR test file header
-            {
-                search.Fetch("malware");
-            }
-
-            // Show the timeline
-            foreach (Indicator ind in search.Indicators)
-            {
-                listView1.Items.Add(new ListViewItem(new string[] { ind.CreatedAt.ToString(), ind.Content }, 1));
-            }
-        }
-
-        private void ExtractAndroidManifest()
-        {
-            if (fileExtension == "apk")
-            {
-                var extractor = new ApkManifestExtractor(filePath);
-                extractor.Open();
-                foreach (AndroidPermission perm in extractor.GetPermissions())
-                {
-                    listView1.Items.Add(new ListViewItem(new string[] { perm.CreatedAt.ToString(), perm.Name + ' ' + perm.Description }, 2));
-                }
-                extractor.Close();
-            }
-        }
-
-        private void ExtractOpenXML()
-        {
-            var extractor = new OpenXMLExtractor(filePath);
-            extractor.Open();
-
-            var metadata = extractor.GetMetadata();
-            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Author: " + metadata.Author }, 3));
-            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Title: " + metadata.Title }, 3));
-            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Subject: " + metadata.Subject }, 3));
-            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Category: " + metadata.Category }, 3));
-            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Description: " + metadata.Description }, 3));
-            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Created: " + metadata.CreatedAt.ToString() }, 3));
-            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Last updated: " + metadata.UpdatedAt.ToString() }, 3));
-            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Last updated by: " + metadata.LastUpdatedBy }, 3));
-            listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), "Last printed: " + metadata.LastPrintedAt }, 3));
-            extractor.Close();
-        }
-
-        private void ExtractLink()
-        {
-            var extractor = new LinkExtractor(filePath);
-            var strings = extractor.GetStrings();
-            foreach (string str in strings)
-            {
-                listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), str }, 4));
-            }
-        }
-
-        private void ExtractExif()
-        {
-            var extractor = new ExifTagExtractor(filePath);
-            var tags = extractor.GetTags();
-            foreach (ExifTag tag in tags)
-            {
-                listView1.Items.Add(new ListViewItem(new string[] { DateTime.Now.ToString(), $"{tag.Name} ({tag.Section}): {tag.Description}" }, 5));
-            }
+            // Extract
+            var worker = new Worker(this);
+            worker.FromFileExtension();    // Get data from file extension database
+            worker.FromAndroidManifest();    // Get data from Android manifest
+            worker.FromTimeline();   // Get data from timeline
+            worker.FromLinks();  // Get links from file
+            worker.FromExif();  //  Get EXIF tags from file
         }
 
         public string OpenFileDialog()
@@ -223,6 +89,16 @@ namespace Catswords.DataType.Client
             }
 
             return filePath;
+        }
+
+        public void AddIndicator(DateTime dt, string Description, int ImageIndex)
+        {
+            listView1.Items.Add(new ListViewItem(new string[] { dt.ToString(), Description }, ImageIndex));
+        }
+
+        public void ShowStatus(string status)
+        {
+            textBox1.Text = status;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

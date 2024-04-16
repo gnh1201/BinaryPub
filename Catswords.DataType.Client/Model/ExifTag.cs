@@ -1,6 +1,6 @@
 ﻿namespace Catswords.DataType.Client.Model
 {
-    class ExifTag
+    public class ExifTag: Timestamp
     {
         public string Section { get; set; }
         public string Name { get; set; }

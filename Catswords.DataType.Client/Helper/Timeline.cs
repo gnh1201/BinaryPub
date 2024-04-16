@@ -12,14 +12,14 @@ namespace Catswords.DataType.Client.Helper
     {
         public string ApiBaseUrl;
         public string AccessToken;
-        public List<Indicator> Indicators;
+        public List<TimelineMessage> Messages;
         public string ResponseText;
 
         public Timeline(string host, string access_token)
         {
             ApiBaseUrl = $"https://{host}/api/v1/timelines/tag";
             AccessToken = access_token;
-            Indicators = new List<Indicator>();
+            Messages = new List<TimelineMessage>();
         }
 
         public static string RemoveHtmlTags(string input)
@@ -77,7 +77,7 @@ namespace Catswords.DataType.Client.Helper
                         string createdAt = status["created_at"].Value<string>();
                         string content = status["content"].Value<string>();
 
-                        Indicators.Add(new Indicator
+                        Messages.Add(new TimelineMessage
                         {
                             CreatedAt = GetDateTimeFromString(createdAt),
                             Content = RemoveHtmlTags(content)

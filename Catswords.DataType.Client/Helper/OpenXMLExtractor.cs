@@ -29,7 +29,7 @@ namespace Catswords.DataType.Client.Helper
                 {
                     if (entry.FullName == "docProps/core.xml")
                     {
-                        TargetPath = Path.Combine(TempDirectory, "docProps_core.xml");
+                        TargetPath = Path.Combine(TempDirectory, Guid.NewGuid().ToString());
                         entry.ExtractToFile(TargetPath);
                         break;
                     }

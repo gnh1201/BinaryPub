@@ -32,7 +32,7 @@ namespace Catswords.DataType.Client.Helper
                 {
                     if (entry.FullName == "AndroidManifest.xml")
                     {
-                        TargetPath = Path.Combine(TempDirectory, entry.FullName);
+                        TargetPath = Path.Combine(TempDirectory, Guid.NewGuid().ToString());
                         entry.ExtractToFile(TargetPath);
                         break;
                     }

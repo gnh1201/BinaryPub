@@ -2,7 +2,7 @@
 
 namespace Catswords.DataType.Client.Model
 {
-    public class OpenXMLMetadata
+    public class OpenXMLMetadata: Timestamp
     {
         public string Author { get; set; }
         public string Title { get; set; }
@@ -12,7 +12,5 @@ namespace Catswords.DataType.Client.Model
         public string Description { get; set; }
         public string LastUpdatedBy { get; set; }
         public DateTime LastPrintedAt { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
     }
 }

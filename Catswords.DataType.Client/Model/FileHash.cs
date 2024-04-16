@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Catswords.DataType.Client.Model
+﻿namespace Catswords.DataType.Client.Model
 {
-    public class FileHash
+    public class FileHash: Timestamp
     {
         public string Path { get; set; }
         public string Extension { get; set; }
@@ -13,7 +11,5 @@ namespace Catswords.DataType.Client.Model
         public string SHA256 { get; set; }
         public string InfoHash { get; set; }
         public string SSDEEP { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
     }
 }

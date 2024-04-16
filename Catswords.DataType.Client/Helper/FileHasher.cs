@@ -139,7 +139,7 @@ namespace Catswords.DataType.Client.Helper
 
         private static string GetMAGIC(string filename)
         {
-            return FileMagic.Read(filename);
+            return new FileMagicExtractor(filename).GetString();
         }
 
         private static string GetInfoHash(string filename, string extension)

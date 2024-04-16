@@ -8,13 +8,13 @@ using System.Xml;
 
 namespace Catswords.DataType.Client.Helper
 {
-    class FileExtensionDB
+    class FileExtensionDatabase
     {
-        public List<Indicator> Indicators;
+        public List<TimelineMessage> Indicators;
 
-        public FileExtensionDB()
+        public FileExtensionDatabase()
         {
-            Indicators = new List<Indicator>();
+            Indicators = new List<TimelineMessage>();
         }
 
         public void Fetch(string q)
@@ -39,7 +39,7 @@ namespace Catswords.DataType.Client.Helper
                 foreach (XmlNode itemNode in itemList)
                 {
                     // organization
-                    Indicators.Add(new Indicator()
+                    Indicators.Add(new TimelineMessage()
                     {
                         Id = itemNode.SelectSingleNode("id").InnerText,
                         CreatedAt = GetDateTimeFromString(itemNode.SelectSingleNode("datetime").InnerText),
@@ -48,7 +48,7 @@ namespace Catswords.DataType.Client.Helper
                     });
 
                     // description
-                    Indicators.Add(new Indicator()
+                    Indicators.Add(new TimelineMessage()
                     {
                         Id = itemNode.SelectSingleNode("id").InnerText,
                         CreatedAt = GetDateTimeFromString(itemNode.SelectSingleNode("datetime").InnerText),
@@ -57,7 +57,7 @@ namespace Catswords.DataType.Client.Helper
                     });
 
                     // content
-                    Indicators.Add(new Indicator()
+                    Indicators.Add(new TimelineMessage()
                     {
                         Id = itemNode.SelectSingleNode("id").InnerText,
                         CreatedAt = GetDateTimeFromString(itemNode.SelectSingleNode("datetime").InnerText),
@@ -66,7 +66,7 @@ namespace Catswords.DataType.Client.Helper
                     });
 
                     // openwith
-                    Indicators.Add(new Indicator()
+                    Indicators.Add(new TimelineMessage()
                     {
                         Id = itemNode.SelectSingleNode("id").InnerText,
                         CreatedAt = GetDateTimeFromString(itemNode.SelectSingleNode("datetime").InnerText),
@@ -75,7 +75,7 @@ namespace Catswords.DataType.Client.Helper
                     });
 
                     // first reported
-                    Indicators.Add(new Indicator()
+                    Indicators.Add(new TimelineMessage()
                     {
                         Id = itemNode.SelectSingleNode("id").InnerText,
                         CreatedAt = GetDateTimeFromString(itemNode.SelectSingleNode("datetime").InnerText),

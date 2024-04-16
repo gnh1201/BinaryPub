@@ -8,19 +8,18 @@ namespace Catswords.DataType.Client
 {
     public partial class Form2 : Form
     {
-        private UserControl1 parent;
+        private UserControl1 Parent;
         private FileHash hashed;
 
         public Form2(UserControl1 parent)
         {
             InitializeComponent();
-
-            this.parent = parent;
+            Parent = parent;
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            hashed = Helper.FileHasher.Compute(parent.filePath);
+            hashed = Helper.FileHasher.Compute(Parent.FilePath);
             txtExtension.Text = hashed.Extension;
             txtHashMd5.Text = hashed.MD5;
             txtHashSha1.Text = hashed.SHA1;
@@ -34,7 +33,7 @@ namespace Catswords.DataType.Client
         private void button1_Click(object sender, EventArgs e)
         {
             ByteViewer bv = new ByteViewer();
-            bv.SetFile(parent.filePath); // or SetBytes
+            bv.SetFile(Parent.FilePath); // or SetBytes
 
             Form newForm = new Form();
             newForm.Size = new System.Drawing.Size(650, 600);

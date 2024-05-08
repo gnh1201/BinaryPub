@@ -88,6 +88,7 @@ namespace Catswords.DataType.Client
             const string NCSI_DNS = "dns.msftncsi.com";
             const string NCSI_DNS_IP_ADDRESS = "131.107.255.255";
 
+
             try
             {
                 // Check NCSI test link

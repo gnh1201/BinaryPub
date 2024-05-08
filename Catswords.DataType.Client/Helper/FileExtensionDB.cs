@@ -1,6 +1,8 @@
 ﻿using Catswords.DataType.Client.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
@@ -19,18 +21,12 @@ namespace Catswords.DataType.Client.Helper
             Indicators = new List<Indicator>();
         }
 
+
         public void Fetch(string q)
         {
             try
             {
-                bool isConnected = NetworkInterface.GetIsNetworkAvailable();
-                if (isConnected == false)
-                {
-                    MessageBox.Show("인터넷에 연결되어 있지 않습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                    // 원격 주소에서 XML 다운로드
+                // 원격 주소에서 XML 다운로드
                 string url = Config.SEARCH_URL + q;
                 WebClient client = new WebClient();
 

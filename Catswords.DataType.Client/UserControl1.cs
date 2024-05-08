@@ -85,7 +85,6 @@ namespace Catswords.DataType.Client
         bool IsInternetConnected()
         {
             const string NCSI_TEST_URL = "http://www.msftncsi.com/ncsi.txt";
-            const string NCSI_TEST_RESULT = "Microsoft NCSI";
             const string NCSI_DNS = "dns.msftncsi.com";
             const string NCSI_DNS_IP_ADDRESS = "131.107.255.255";
 
@@ -94,7 +93,7 @@ namespace Catswords.DataType.Client
                 // Check NCSI test link
                 var webClient = new WebClient();
                 string result = webClient.DownloadString(NCSI_TEST_URL);
-                if (result != NCSI_TEST_RESULT)
+                if (result != "Microsoft NCSI")
                 {
                     return false;
                 }
@@ -118,18 +117,17 @@ namespace Catswords.DataType.Client
         private void FetchFromFileExtensionDB()
         {
             if (IsInternetConnected())
-
             {
-
                 var search = new FileExtensionDB();
-            search.Fetch(fileExtension);
-            foreach (Indicator ind in search.Indicators)
-            {
-                listView1.Items.Add(new ListViewItem(new string[] { ind.CreatedAt.ToString(), ind.Content }, 0));
-            }
+                search.Fetch(fileExtension);
+                foreach (Indicator ind in search.Indicators)
+                {
+                    listView1.Items.Add(new ListViewItem(new string[] { ind.CreatedAt.ToString(), ind.Content }, 0));
+                }
             } else
             {
-                MessageBox.Show("네트워크 상태 좋지 않습니다.");
+                MessageBox.Show("인터넷에 연결되어 있지 않습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
         }

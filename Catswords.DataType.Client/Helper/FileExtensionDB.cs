@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
@@ -21,9 +23,17 @@ namespace Catswords.DataType.Client.Helper
         {
             try
             {
-                // 원격 주소에서 XML 다운로드
+                bool isConnected = NetworkInterface.GetIsNetworkAvailable();
+                if (isConnected == false)
+                {
+                    MessageBox.Show("인터넷에 연결되어 있지 않습니다.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                    // 원격 주소에서 XML 다운로드
                 string url = Config.SEARCH_URL + q;
                 WebClient client = new WebClient();
+
                 client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
                 client.Encoding = Encoding.UTF8;
                 string xmlString = client.DownloadString(url);

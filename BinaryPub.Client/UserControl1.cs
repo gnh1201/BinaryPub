@@ -130,7 +130,7 @@ namespace BinaryPub.Client
                 Icon = Properties.Resources.icon,
                 MaximizeBox = false,
                 MinimizeBox = false,
-                Width = 450,
+                Width = 550,
                 Height = 560,
                 BackColor = System.Drawing.SystemColors.Window
             };

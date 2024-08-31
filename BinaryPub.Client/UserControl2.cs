@@ -69,7 +69,7 @@ namespace BinaryPub.Client
 
                 txtSsdeep.Invoke(new MethodInvoker(delegate
                 {
-                    txtSsdeep.Text = hasher.GetSSDEEP();
+                    //txtSsdeep.Text = hasher.GetSSDEEP();
                     CalculatedHashInfo.SSDEEP = txtSsdeep.Text;
                 }));
 

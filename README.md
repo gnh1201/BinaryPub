@@ -6,11 +6,11 @@ BinaryPub - Check the file reputation on the social timeline
 
 ## Features
 * Get a reputations with the file magic and the file extension from ActivityPub network
-* [ImpHash](https://cloud.google.com/blog/topics/threat-intelligence/tracking-malware-import-hashing/?hl=en) support
-* Torrent InfoHash support
 * [EXIF](https://en.wikipedia.org/wiki/Exif) support
 * OpenXML support. e.g., Latest Microsoft Office, Open Document Format
 * [CFBF(Compound File Binary Format)](https://en.wikipedia.org/wiki/Compound_File_Binary_Format) support. e.g., Old-released Microsoft Office
+* HashView (MD5, SHA1, CRC32, Magic, SHA256, File Extension, Torrent InfoHash, [ImpHash](https://cloud.google.com/blog/topics/threat-intelligence/tracking-malware-import-hashing/?hl=en) support, SSDEEP)
+* ByteView
 
 ## Related projects
 * [Catswords FileType Directory](https://exts.kr)

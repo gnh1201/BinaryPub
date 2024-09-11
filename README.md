@@ -6,6 +6,7 @@ BinaryPub - Check the file reputation on the social timeline
 
 ## Features
 * Get a reputations with the file magic and the file extension from ActivityPub network
+* [APK (Android Application Package)](https://developer.android.com/guide/components/fundamentals) support
 * [EXIF](https://en.wikipedia.org/wiki/Exif) support
 * OpenXML support. e.g., Latest Microsoft Office, Open Document Format
 * [CFBF(Compound File Binary Format)](https://en.wikipedia.org/wiki/Compound_File_Binary_Format) support. e.g., Old-released Microsoft Office

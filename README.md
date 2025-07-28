@@ -18,7 +18,10 @@ BinaryPub - Check the file reputation on the social timeline
 * [github.com/gnh1201/CatswordsTab](https://github.com/gnh1201/CatswordsTab)
 * [github.com/Mastodon/Mastodon](https://github.com/Mastodon/Mastodon)
 
-## Contact us
-- abuse@catswords.net
+## Report abuse
+* abuse@catswords.re.kr
+
+## Join our community
 - ActivityPub [@catswords_oss@catswords.social](https://catswords.social/@catswords_oss)
-- [Join Catswords on Microsoft Teams](https://teams.live.com/l/community/FEACHncAhq8ldnojAI)
+- [Join Catswords OSS on Microsoft Teams (teams.live.com)](https://teams.live.com/l/community/FEACHncAhq8ldnojAI)
+- [Join Catswords OSS #binarypub on Discord (discord.gg)](https://discord.gg/6sDFFkbYUf)
